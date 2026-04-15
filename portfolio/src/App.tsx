@@ -1,11 +1,13 @@
-import { useScroll, useSpring } from 'framer-motion'
-import { useRef } from 'react'
+import { AnimatePresence, useScroll, useSpring } from 'framer-motion'
+import { useRef, useState } from 'react'
 import './App.css'
-import LandingPage from './components/LandingPage'
-import ProjectPage from './components/ProjectPage'
+import LandingPage from './components/LandingPage.tsx'
+import ProjectPage from './components/ProjectPage.tsx'
+import ProjectDetailPage, { type Project } from './components/ProjectDetailPage.tsx'
 
 function App() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -23,7 +25,7 @@ function App() {
       <div className="scroll-container" ref={containerRef}>
         <div className="sticky-wrapper">
           <LandingPage scrollProgress={smoothProgress} />
-          <ProjectPage scrollProgress={smoothProgress} />
+          <ProjectPage scrollProgress={smoothProgress} onExplore={(project) => setSelectedProject(project)} />
         </div>
       </div>
 
@@ -38,6 +40,15 @@ function App() {
           <button className="cta-btn">Get in touch</button>
         </div>
       </section>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectDetailPage
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </main>
   )
 }

@@ -17,22 +17,19 @@ export default function LandingPage({ scrollProgress }: LandingPageProps) {
   return (
     <section className="hero-section" aria-label="Landing">
       <motion.div className="hero-inner" style={{ opacity, y, scale }}>
-        <div className="hero-eyebrow">
-          <span className="eyebrow-dot" />
-          Available for work · 2026
-        </div>
+      <div className="hero-eyebrow">
+        <span className="eyebrow-dot" />
+        Available for work · 2025
+      </div>
 
         <h1 className="hero-headline">
-          <span className="headline-line">Work that</span>
-          <span className="headline-line italic">moves</span>
-          <span className="headline-line">people</span>
+          <span className="headline-line">Hi I&apos;m,</span>
+          <span className="headline-line">William</span>
         </h1>
 
         <div className="hero-footer">
           <p className="hero-sub">
-            A multidisciplinary designer and engineer crafting
-            <br />
-            premium digital experiences.
+          Frontend-focused IT student building responsive, user-centered web apps, with a strong interest in UI/UX, performance, and real-world problem solving.
           </p>
           <div className="hero-scroll-hint">
             <div className="scroll-track">

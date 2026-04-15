@@ -80,9 +80,9 @@
 
 .hero-headline {
   font-family: var(--sans);
-  font-size: clamp(72px, 10.5vw, 268px);
-  font-weight: 600;
-  line-height: 0.86;
+  font-size: clamp(82px, 10.5vw, 368px);
+  font-weight: 700;
+  line-height: 1.56;
   letter-spacing: -0.04em;
   display: flex;
   flex-direction: column;
@@ -179,7 +179,7 @@
   flex: 1;
   min-width: 0;
   max-width: 340px;
-  height: clamp(360px, 66vh, 760px);
+  height: clamp(260px, 66vh, 460px);
   border-radius: 16px;
   border: 1px solid var(--border);
   position: relative;

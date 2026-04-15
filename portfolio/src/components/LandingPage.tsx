@@ -23,8 +23,7 @@ export default function LandingPage({ scrollProgress }: LandingPageProps) {
       </div>
 
         <h1 className="hero-headline">
-          <span className="headline-line">Hi I&apos;m,</span>
-          <span className="headline-line">William</span>
+          <span className="headline-line">Hi I&apos;m, William</span>
         </h1>
 
         <div className="hero-footer">

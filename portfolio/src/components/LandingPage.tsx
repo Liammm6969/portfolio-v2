@@ -17,10 +17,10 @@ export default function LandingPage({ scrollProgress }: LandingPageProps) {
   return (
     <section className="hero-section" aria-label="Landing">
       <motion.div className="hero-inner" style={{ opacity, y, scale }}>
-        
+
         {/* Eyebrow Container */}
         <div style={{ overflow: 'hidden', paddingBottom: '2px', display: 'flex', marginTop: 'clamp(24px, 3vw, 40px)' }}>
-          <motion.div 
+          <motion.div
             className="hero-eyebrow"
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
@@ -33,15 +33,15 @@ export default function LandingPage({ scrollProgress }: LandingPageProps) {
 
         {/* Eyebrow Line */}
         <motion.div
-           initial={{ scaleX: 0 }}
-           animate={{ scaleX: 1 }}
-           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0 }} // Fast animation but smooth
-           style={{ height: '1px', background: 'rgba(237, 233, 225, 0.16)', transformOrigin: 'center', width: '100%', marginBottom: 'clamp(24px, 3vw, 32px)' }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0 }} // Fast animation but smooth
+          style={{ height: '1px', background: 'rgba(237, 233, 225, 0.16)', transformOrigin: 'center', width: '100%', marginBottom: 'clamp(24px, 3vw, 32px)' }}
         />
 
         {/* Headline Container */}
         <div style={{ overflow: 'hidden' }}>
-          <motion.h1 
+          <motion.h1
             className="hero-headline"
             style={{ margin: 0, paddingBottom: 'clamp(20px, 3vw, 32px)' }}
             initial={{ y: '100%' }}
@@ -54,27 +54,27 @@ export default function LandingPage({ scrollProgress }: LandingPageProps) {
 
         {/* Headline Line */}
         <motion.div
-           initial={{ scaleX: 0 }}
-           animate={{ scaleX: 1 }}
-           transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 1.0 }} // Slower animation, after eyebrow text
-           style={{ height: '1px', background: 'rgba(237, 233, 225, 0.12)', transformOrigin: 'center', width: '100%' }}
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 1.0 }} // Slower animation, after eyebrow text
+          style={{ height: '1px', background: 'rgba(237, 233, 225, 0.12)', transformOrigin: 'center', width: '100%' }}
         />
 
         <div className="hero-footer" style={{ paddingTop: 'clamp(20px, 3vw, 32px)' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div style={{ overflow: 'hidden' }}>
-              <motion.p 
+              <motion.p
                 className="hero-sub"
                 style={{ margin: 0 }}
                 initial={{ y: '100%' }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 1.8 }}
               >
-                Frontend-focused IT student building responsive, user-centered web
+                Frontend-focused IT student based in the Philippines building responsive, user-centered web
               </motion.p>
             </div>
             <div style={{ overflow: 'hidden' }}>
-              <motion.p 
+              <motion.p
                 className="hero-sub"
                 style={{ margin: 0 }}
                 initial={{ y: '100%' }}
@@ -84,8 +84,8 @@ export default function LandingPage({ scrollProgress }: LandingPageProps) {
                 apps, with a strong interest in UI/UX, performance, and real-world
               </motion.p>
             </div>
-             <div style={{ overflow: 'hidden' }}>
-              <motion.p 
+            <div style={{ overflow: 'hidden' }}>
+              <motion.p
                 className="hero-sub"
                 style={{ margin: 0 }}
                 initial={{ y: '100%' }}
@@ -96,8 +96,8 @@ export default function LandingPage({ scrollProgress }: LandingPageProps) {
               </motion.p>
             </div>
           </div>
-          
-          <motion.div 
+
+          <motion.div
             className="hero-scroll-hint"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

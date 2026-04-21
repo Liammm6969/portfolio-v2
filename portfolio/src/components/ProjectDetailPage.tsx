@@ -139,9 +139,13 @@ function UIPreview({ screens, accent }: { screens: string[]; accent: string }) {
 export default function ProjectDetailPage({
   project = DEMO_PROJECT,
   onClose,
+  onNextProject,
+  transitionMode = 'open',
 }: {
   project?: Project
   onClose?: () => void
+  onNextProject?: () => void
+  transitionMode?: 'open' | 'next' | 'close'
 }) {
   const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -162,6 +166,15 @@ export default function ProjectDetailPage({
     viewport: { once: true },
     transition: { delay: i * 0.08, duration: 0.7, ease: premiumEase },
   })
+
+  const isCoverTransition = transitionMode === 'next'
+  const pageInitial = isCoverTransition ? { y: '105%' } : { y: '100%' }
+  const pageExit = isCoverTransition
+    ? { y: 0 }
+    : { y: '100%' }
+  const pageTransition = isCoverTransition
+    ? { duration: 0.44, ease: premiumEase }
+    : { duration: 0.7, ease: premiumEase }
 
   return (
     <>
@@ -211,7 +224,13 @@ export default function ProjectDetailPage({
           align-items: center; justify-content: center; transition: border-color 0.2s, color 0.2s;
         }
         .close-btn:hover { border-color: var(--border-hover); color: var(--fg); }
-        .scroll-area { flex: 1; overflow-y: auto; overflow-x: hidden; }
+        .scroll-area {
+          flex: 1;
+          overflow-y: auto;
+          overflow-x: hidden;
+          scroll-behavior: smooth;
+          -webkit-overflow-scrolling: touch;
+        }
         .hero-block { position: relative; height: 75vh; min-height: 480px; overflow: hidden; }
         .hero-cover { position: absolute; inset: 0; will-change: transform; }
         .hero-cover img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.45) saturate(0.7); display: block; }
@@ -274,7 +293,20 @@ export default function ProjectDetailPage({
           max-width: 1200px; margin: 0 auto; width: 100%;
         }
         .footer-copy { font-size: 11px; letter-spacing: 0.12em; color: var(--fg-muted); }
-        .footer-next { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 15px; font-style: italic; color: var(--fg-dim); }
+        .footer-next {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-family: var(--serif);
+          font-size: 15px;
+          font-style: italic;
+          color: var(--fg-dim);
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          transition: color 0.2s ease;
+        }
+        .footer-next:hover { color: var(--fg); }
         .noise-overlay {
           position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.03;
           background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -284,10 +316,10 @@ export default function ProjectDetailPage({
 
       <motion.div
         className="project-page"
-        initial={{ y: '100%' }}
+        initial={pageInitial}
         animate={{ y: 0 }}
-        exit={{ y: '100%' }}
-        transition={{ duration: 0.7, ease: premiumEase }}
+        exit={pageExit}
+        transition={pageTransition}
       >
         <div className="noise-overlay" />
 
@@ -313,7 +345,7 @@ export default function ProjectDetailPage({
         <div className="scroll-area" ref={scrollRef}>
           <div className="hero-block">
             <motion.div className="hero-cover" style={{ y: heroY }}>
-              <img src={project.uiScreens[0]} alt={project.title} />
+              <img src={project.uiScreens[0]} alt={project.title} loading="eager" decoding="async" />
             </motion.div>
 
             <div className="hero-text">
@@ -433,7 +465,7 @@ export default function ProjectDetailPage({
 
           <footer className="page-footer">
             <span className="footer-copy">© {project.year} - All rights reserved</span>
-            <span className="footer-next">
+            <button className="footer-next" type="button" onClick={onNextProject}>
               Next project
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path
@@ -444,7 +476,7 @@ export default function ProjectDetailPage({
                   strokeLinejoin="round"
                 />
               </svg>
-            </span>
+            </button>
           </footer>
         </div>
       </motion.div>

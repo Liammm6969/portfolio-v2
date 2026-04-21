@@ -1,7 +1,8 @@
-import { motion, useSpring, useTransform, type MotionValue } from 'framer-motion'
+import { AnimatePresence, motion, useSpring, useTransform, type MotionValue } from 'framer-motion'
+import { useMemo, useState } from 'react'
 import type { Project } from './ProjectDetailPage.tsx'
 
-const CARDS = [
+export const PROJECT_CARDS = [
   {
     id: 1,
     label: 'Mobile',
@@ -28,13 +29,13 @@ const CARDS = [
         { name: 'Framer Motion', category: 'Animation' },
       ],
       uiScreens: [
-        'public/hydration_1.png',
-        'public/hydration_2.png',
-        'public/hydration_3.png',
+        '/hydration_1.png',
+        '/hydration_2.png',
+        '/hydration_3.png',
       ],
       liveUrl: '#',
       repoUrl: '#',
-    }
+    },
   },
   {
     id: 2,
@@ -140,7 +141,70 @@ const CARDS = [
       liveUrl: '#',
       repoUrl: '#',
     },
+    
   },
+  {
+    id: 5,
+    label: 'Mobile',
+    title: 'Weather App',
+    desc: 'A weather app that shows the current weather and forecast for a given location.',
+    accent: '#d09b7b',
+    bg: '#14110f',
+    icon: '✦',
+    project: {
+      id: 5,
+      title: 'Weather App',
+      label: 'Mobile Application',
+      description: 'A weather app that shows the current weather and forecast for a given location.',
+      longDesc: 'The weather app is a mobile application that allows users to view the current weather and forecast for a given location. The app uses the OpenWeatherMap API to get the weather data and displays it in a user-friendly interface.',
+      year: '2026',
+      role: 'Mobile Developer',
+      accent: '#d09b7b',
+      bg: '#14110f',
+      techStack: [
+        { name: 'React Native', category: 'Mobile' },
+        { name: 'TypeScript', category: 'UI' },
+        { name: 'Vite', category: 'Build' },
+        { name: 'OpenWeatherMap API', category: 'API' },
+      ],
+      uiScreens: ['/weather_1.png', '/weather_2.png', '/weather_3.png'],
+      liveUrl: '#',
+      repoUrl: '#'
+    }
+  },
+  {
+  id: 6,
+  label: 'System',
+  title: 'Attendr',
+  desc: 'A geo-verified attendance and OJT monitoring system with QR-based validation and real-time tracking.',
+  accent: '#d09b7b',
+  bg: '#14110f',
+  icon: '✦',
+  project: {
+    id: 6,
+    title: 'Attendr',
+    label: 'OJT Attendance Monitoring System',
+    description: 'A real-time attendance system that uses QR scanning and geolocation to ensure valid time-in and time-out for interns.',
+    longDesc: 'Attendr is a full-stack OJT attendance monitoring system designed to replace manual logbooks and unreliable tracking methods. The system allows interns to time in and out by scanning a QR code using their mobile browser, while verifying their physical presence through GPS-based geofencing.\n\nThe platform includes a real-time dashboard for administrators to monitor attendance, track accumulated hours, and identify irregularities such as late logins or missing records. It also features automated hour computation, daily logs, and report generation.\n\nThe system was built with a mobile-first approach using a Vite + TypeScript frontend, ensuring fast performance and a responsive user experience across devices. Real-time updates are handled through WebSockets, allowing attendance data to reflect instantly across dashboards.',
+    year: '2026',
+    role: 'Full Stack Developer',
+    accent: '#d09b7b',
+    bg: '#14110f',
+    techStack: [
+      { name: 'React', category: 'Frontend' },
+      { name: 'TypeScript', category: 'Language' },
+      { name: 'Vite', category: 'Build Tool' },
+      { name: 'Node.js', category: 'Backend' },
+      { name: 'Express', category: 'API' },
+      { name: 'MongoDB', category: 'Database' },
+      { name: 'Socket.io', category: 'Realtime' },
+      { name: 'html5-qrcode', category: 'QR Scanning' }
+    ],
+    uiScreens: ['/attendr_1.png', '/attendr_2.png', '/attendr_3.png'],
+    liveUrl: 'https://ojt-attendance-nine.vercel.app',
+    repoUrl: '#'
+  }
+}
 ]
 
 type CardLayout = {
@@ -165,16 +229,22 @@ type ProjectPageProps = {
 }
 
 type CardProps = {
-  card: (typeof CARDS)[0]
+  cardGroup: {
+    label: string
+    items: typeof PROJECT_CARDS
+  }
   index: number
   scrollProgress: MotionValue<number>
   onExplore?: (project: Project) => void
 }
 
-function ParallaxCard({ card, index, scrollProgress, onExplore }: CardProps) {
-  const layout = CARD_LAYOUT[index]
+function ParallaxCard({ cardGroup, index, scrollProgress, onExplore }: CardProps) {
+  const layout = CARD_LAYOUT[index % CARD_LAYOUT.length]
   const start = 0.16 + index * 0.1
   const end = start + 0.34
+  const [activeIndex, setActiveIndex] = useState(0)
+  const activeCard = cardGroup.items[activeIndex]
+  const hasMultipleProjects = cardGroup.items.length > 1
 
   const rawY = useTransform(scrollProgress, [start, end], [layout.startYOffset, layout.endYOffset])
   const y = useSpring(rawY, { stiffness: 42, damping: 19, mass: 1.08 })
@@ -187,25 +257,71 @@ function ParallaxCard({ card, index, scrollProgress, onExplore }: CardProps) {
 
   return (
     <motion.article
-      style={{ x, y, scale, background: card.bg, rotate: layout.rotate, zIndex: layout.zIndex }}
+      style={{ x, y, scale, background: activeCard.bg, rotate: layout.rotate, zIndex: layout.zIndex }}
       className="parallax-card"
     >
-      <div className="card-glow" style={{ background: card.accent }} />
+      <div className="card-glow" style={{ background: activeCard.accent }} />
       <div className="card-content">
         <div className="card-top">
-          <span className="card-icon" style={{ color: card.accent }}>
-            {card.icon}
-          </span>
-          <span className="card-label">{card.label}</span>
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={`icon-${activeCard.id}`}
+              className="card-icon"
+              style={{ color: activeCard.accent }}
+              initial={{ opacity: 0, y: 8, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.95 }}
+              transition={{ duration: 0.22, ease: 'easeOut' }}
+            >
+              {activeCard.icon}
+            </motion.span>
+          </AnimatePresence>
+          <span className="card-label">{cardGroup.label}</span>
         </div>
         <div className="card-bottom">
-          <h3 className="card-title">{card.title}</h3>
-          <p className="card-desc">{card.desc}</p>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`content-${activeCard.id}`}
+              className="card-slide-content"
+              initial={{ opacity: 0, y: 14, filter: 'blur(3px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -12, filter: 'blur(2px)' }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <h3 className="card-title">{activeCard.title}</h3>
+              <p className="card-desc">{activeCard.desc}</p>
+            </motion.div>
+          </AnimatePresence>
+          {hasMultipleProjects && (
+            <div className="card-carousel">
+              <button
+                type="button"
+                className="carousel-nav"
+                onClick={() =>
+                  setActiveIndex((current) => (current - 1 + cardGroup.items.length) % cardGroup.items.length)
+                }
+                aria-label={`Previous ${cardGroup.label} project`}
+              >
+                ←
+              </button>
+              <span className="carousel-meta">
+                {activeIndex + 1}/{cardGroup.items.length}
+              </span>
+              <button
+                type="button"
+                className="carousel-nav"
+                onClick={() => setActiveIndex((current) => (current + 1) % cardGroup.items.length)}
+                aria-label={`Next ${cardGroup.label} project`}
+              >
+                →
+              </button>
+            </div>
+          )}
           <button
             className="card-cta"
-            style={{ borderColor: card.accent, color: card.accent }}
+            style={{ borderColor: activeCard.accent, color: activeCard.accent }}
             type="button"
-            onClick={() => onExplore?.(card.project)}
+            onClick={() => onExplore?.(activeCard.project)}
           >
             Explore →
           </button>
@@ -216,12 +332,27 @@ function ParallaxCard({ card, index, scrollProgress, onExplore }: CardProps) {
 }
 
 export default function ProjectPage({ scrollProgress, onExplore }: ProjectPageProps) {
+  const groupedCards = useMemo(() => {
+    const groups = new Map<string, typeof PROJECT_CARDS>()
+
+    for (const card of PROJECT_CARDS) {
+      const existing = groups.get(card.label)
+      if (existing) {
+        existing.push(card)
+      } else {
+        groups.set(card.label, [card])
+      }
+    }
+
+    return Array.from(groups, ([label, items]) => ({ label, items }))
+  }, [])
+
   return (
     <section className="cards-stage" aria-label="Project cards">
-      {CARDS.map((card, index) => (
+      {groupedCards.map((cardGroup, index) => (
         <ParallaxCard
-          key={card.id}
-          card={card}
+          key={cardGroup.label}
+          cardGroup={cardGroup}
           index={index}
           scrollProgress={scrollProgress}
           onExplore={onExplore}

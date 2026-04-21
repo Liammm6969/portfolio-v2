@@ -80,7 +80,7 @@
 
 .hero-headline {
   font-family: var(--sans);
-  font-size: clamp(82px, 10.5vw, 368px);
+  font-size: clamp(92px, 11.5vw, 468px);
   font-weight: 700;
   line-height: 1.56;
   letter-spacing: -0.04em;
@@ -95,6 +95,7 @@
   display: inline-block;
   width: 100%;
 }
+
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -107,11 +108,13 @@
 }
 
 .eyebrow-dot {
-  width: 6px; height: 6px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #7eb5c8;
   box-shadow: 0 0 8px #7eb5c8;
 }
+
 .hero-footer {
   display: flex;
   align-items: flex-start;
@@ -121,10 +124,10 @@
 }
 
 .hero-sub {
-  font-size: clamp(20px, 1.3vw, 32px);
+  font-size: clamp(30px, 2.3vw, 42px);
   line-height: 1.14;
   color: rgba(237, 233, 225, 0.78);
-  max-width: 26ch;
+  max-width: 32ch;
 }
 
 .hero-scroll-hint {
@@ -236,6 +239,12 @@
   gap: 10px;
 }
 
+.card-slide-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .card-title {
   font-family: var(--serif);
   font-size: clamp(20px, 2vw, 26px);
@@ -264,6 +273,42 @@
   margin-top: 4px;
   opacity: 0.88;
   transition: opacity 0.2s;
+}
+
+.card-carousel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-top: 2px;
+}
+
+.carousel-nav {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg-dim);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.carousel-nav:hover {
+  border-color: var(--border-hover);
+  color: var(--fg);
+}
+
+.carousel-meta {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  min-width: 34px;
+  text-align: center;
 }
 
 .card-number {
@@ -339,6 +384,7 @@
     opacity: 0;
     transform: translateY(28px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

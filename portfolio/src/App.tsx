@@ -1,29 +1,19 @@
-import { AnimatePresence, useScroll, useSpring } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import LandingPage from './components/LandingPage.tsx'
-import ProjectPage, { PROJECT_CARDS } from './components/ProjectPage.tsx'
+import ProjectFanOut from './components/ProjectFanOut.tsx'
+import ProjectShowcase from './components/ProjectShowcase.tsx'
 import ProjectDetailPage, { type Project } from './components/ProjectDetailPage.tsx'
+import { PROJECT_CARDS } from './data/projects.ts'
 
 type DetailTransitionMode = 'open' | 'next' | 'close'
 
 function App() {
-  const containerRef = useRef<HTMLDivElement>(null)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [transitionMode, setTransitionMode] = useState<DetailTransitionMode>('open')
   const allProjects = PROJECT_CARDS.map(({ project }) => project)
   const preloadedImageSetRef = useRef(new Set<string>())
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  })
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 34,
-    damping: 18,
-    mass: 1.05,
-  })
 
   const preloadProjectImages = (project: Project) => {
     project.uiScreens.forEach((src) => {
@@ -54,19 +44,23 @@ function App() {
 
   return (
     <main className="page">
-      <div className="scroll-container" ref={containerRef}>
-        <div className="sticky-wrapper">
-          <LandingPage scrollProgress={smoothProgress} />
-          <ProjectPage
-            scrollProgress={smoothProgress}
-            onExplore={(project) => {
-              preloadProjectImages(project)
-              setTransitionMode('open')
-              setSelectedProject(project)
-            }}
-          />
-        </div>
-      </div>
+      <LandingPage />
+
+      <ProjectFanOut 
+         onExplore={(project) => {
+           preloadProjectImages(project)
+           setTransitionMode('open')
+           setSelectedProject(project)
+         }} 
+      />
+
+      <ProjectShowcase 
+        onExplore={(project) => {
+          preloadProjectImages(project)
+          setTransitionMode('open')
+          setSelectedProject(project)
+        }} 
+      />
 
       <section className="after-section">
         <div className="after-inner">

@@ -1,25 +1,13 @@
-import { motion, useSpring, useTransform, type MotionValue } from 'framer-motion'
+import { motion } from 'framer-motion'
 
-type LandingPageProps = {
-  scrollProgress: MotionValue<number>
-}
-
-export default function LandingPage({ scrollProgress }: LandingPageProps) {
-  const rawOpacity = useTransform(scrollProgress, [0, 0.35], [1, 0])
-  const opacity = useSpring(rawOpacity, { stiffness: 60, damping: 18 })
-
-  const rawY = useTransform(scrollProgress, [0, 0.4], ['0%', '-12%'])
-  const y = useSpring(rawY, { stiffness: 50, damping: 18 })
-
-  const rawScale = useTransform(scrollProgress, [0, 0.4], [1, 0.96])
-  const scale = useSpring(rawScale, { stiffness: 50, damping: 18 })
-
+export default function LandingPage() {
   return (
-    <section className="hero-section" aria-label="Landing">
-      <motion.div className="hero-inner" style={{ opacity, y, scale }}>
+    <div className="landing-sticky-wrapper">
+      <section className="hero-section" aria-label="Landing">
+        <motion.div className="hero-inner" style={{ opacity: 1, y: 0, scale: 1 }}>
 
-        {/* Eyebrow Container */}
-        <div style={{ overflow: 'hidden', paddingBottom: '2px', display: 'flex', marginTop: 'clamp(24px, 3vw, 40px)' }}>
+          {/* Eyebrow Container */}
+          <div style={{ overflow: 'hidden', paddingBottom: '2px', display: 'flex', marginTop: 'clamp(24px, 3vw, 40px)' }}>
           <motion.div
             className="hero-eyebrow"
             initial={{ y: '100%' }}
@@ -115,5 +103,6 @@ export default function LandingPage({ scrollProgress }: LandingPageProps) {
         </div>
       </motion.div>
     </section>
+    </div>
   )
 }

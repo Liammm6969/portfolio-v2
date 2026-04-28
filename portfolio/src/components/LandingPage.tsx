@@ -1,11 +1,33 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 export default function LandingPage() {
+  const [isResumeOpen, setIsResumeOpen] = useState(false)
+
   const socialLinks = [
     { label: 'GitHub', href: 'https://github.com/', icon: 'github' },
     { label: 'LinkedIn', href: 'https://linkedin.com/', icon: 'linkedin' },
     { label: 'Email', href: 'mailto:hello@example.com', icon: 'email' }
   ] as const
+
+  useEffect(() => {
+    if (!isResumeOpen) return
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsResumeOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [isResumeOpen])
 
   return (
     <div className="landing-sticky-wrapper">
@@ -59,6 +81,10 @@ export default function LandingPage() {
           <motion.a
             className="hero-resume-link"
             href="#"
+            onClick={(event) => {
+              event.preventDefault()
+              setIsResumeOpen(true)
+            }}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 1.3 }}
@@ -161,6 +187,34 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+        {isResumeOpen && (
+          <div className="resume-modal-backdrop" onClick={() => setIsResumeOpen(false)}>
+            <motion.div
+              className="resume-modal"
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="resume-modal-header">
+                <span>Resume Preview</span>
+                <button
+                  type="button"
+                  className="resume-modal-close"
+                  onClick={() => setIsResumeOpen(false)}
+                  aria-label="Close resume preview"
+                >
+                  ×
+                </button>
+              </div>
+              <iframe
+                src="/resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+                title="William resume PDF preview"
+                className="resume-modal-frame"
+              />
+            </motion.div>
+          </div>
+        )}
       </motion.div>
     </section>
     </div>

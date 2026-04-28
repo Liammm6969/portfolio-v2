@@ -92,6 +92,49 @@
   padding-top: clamp(16px, 2vw, 24px);
 }
 
+.hero-headline-row {
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero-divider-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-headline-divider {
+  height: 1px;
+  background: rgba(237, 233, 225, 0.12);
+  transform-origin: center;
+  width: 100%;
+  flex: 1;
+}
+
+.hero-resume-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(237, 233, 225, 0.7);
+  text-decoration: none;
+  white-space: nowrap;
+  margin-top: clamp(6px, 0.8vw, 12px);
+  transition: color 0.25s ease;
+  position: relative;
+}
+
+.hero-resume-link:hover {
+  color: rgba(237, 233, 225, 0.98);
+}
+
+.hero-resume-link svg {
+  width: 14px;
+  height: 14px;
+}
+
 .headline-line {
   display: inline-block;
   width: 100%;
@@ -139,6 +182,57 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--fg-muted);
+}
+
+.hero-right-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 26px;
+  min-width: 56px;
+}
+
+.hero-meta-right {
+  display: flex;
+  align-items: flex-start;
+}
+
+.hero-social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  padding-top: 40px;
+}
+
+.hero-social-links::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 2px;
+  width: 1px;
+  height: 24px;
+  background: rgba(237, 233, 225, 0.22);
+}
+
+.hero-social-link {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(237, 233, 225, 0.44);
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.hero-social-link:hover {
+  color: rgba(237, 233, 225, 0.88);
+  transform: translateY(-1px);
+}
+
+.hero-social-link svg {
+  width: 22px;
+  height: 22px;
 }
 
 .scroll-track {
@@ -646,6 +740,23 @@
 }
 
 @media (max-width: 640px) {
+  .hero-headline-row {
+    display: block;
+  }
+
+  .hero-meta-right {
+    width: auto;
+  }
+
+  .hero-resume-link {
+    display: inline-block;
+    margin: 0;
+  }
+
+  .hero-resume-link::after {
+    display: none;
+  }
+
   .cards-stage {
     gap: clamp(-34px, -6vw, -14px);
     padding: 0 12px 20px;
@@ -669,6 +780,22 @@
   }
 
   .hero-scroll-hint {
+    display: none;
+  }
+
+  .hero-right-rail {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .hero-social-links {
+    padding-top: 0;
+    position: static;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .hero-social-links::before {
     display: none;
   }
 

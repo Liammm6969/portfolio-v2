@@ -5,9 +5,9 @@ export default function LandingPage() {
   const [isResumeOpen, setIsResumeOpen] = useState(false)
 
   const socialLinks = [
-    { label: 'GitHub', href: 'https://github.com/', icon: 'github' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/', icon: 'linkedin' },
-    { label: 'Email', href: 'mailto:hello@example.com', icon: 'email' }
+    { label: 'GitHub', href: 'https://github.com/Liammm6969', icon: 'github' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mark-william-pajarillo-6abb87376/', icon: 'linkedin' },
+    { label: 'Email', href: 'mailto:liampajarillo.business@gmail.com', icon: 'email' }
   ] as const
 
   useEffect(() => {

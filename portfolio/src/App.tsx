@@ -2,7 +2,6 @@ import { AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import LandingPage from './components/LandingPage.tsx'
-import ProjectFanOut from './components/ProjectFanOut.tsx'
 import ProjectShowcase from './components/ProjectShowcase.tsx'
 import ProjectDetailPage, { type Project } from './components/ProjectDetailPage.tsx'
 import { PROJECT_CARDS } from './data/projects.ts'
@@ -45,14 +44,6 @@ function App() {
   return (
     <main className="page">
       <LandingPage />
-
-      <ProjectFanOut 
-         onExplore={(project) => {
-           preloadProjectImages(project)
-           setTransitionMode('open')
-           setSelectedProject(project)
-         }} 
-      />
 
       <ProjectShowcase 
         onExplore={(project) => {

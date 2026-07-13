@@ -2,6 +2,7 @@ import { AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import LandingPage from './components/LandingPage.tsx'
+import TechStackSection from './components/TechStackSection.tsx'
 import ProjectShowcase from './components/ProjectShowcase.tsx'
 import EducationSection from './components/EducationSection.tsx'
 import ProjectDetailPage, { type Project } from './components/ProjectDetailPage.tsx'
@@ -45,6 +46,8 @@ function App() {
   return (
     <main className="page">
       <LandingPage />
+
+      <TechStackSection />
 
       <ProjectShowcase 
         onExplore={(project) => {

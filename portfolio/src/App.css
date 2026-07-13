@@ -586,6 +586,76 @@
   display: none;
 }
 
+/* --- Tech Stack (minimal) --- */
+
+.techstack-section {
+  padding: clamp(64px, 10vh, 120px) clamp(24px, 5vw, 80px);
+  border-top: 1px solid var(--border);
+}
+
+.techstack-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.techstack-header h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.techstack-header p {
+  margin: 14px 0 0;
+  max-width: 62ch;
+  color: var(--fg-dim);
+  line-height: 1.75;
+  font-size: 15px;
+}
+
+.techstack-grid {
+  margin-top: clamp(28px, 4vh, 44px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .techstack-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.techstack-group {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.techstack-kicker {
+  margin: 0 0 12px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.techstack-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.techstack-chip {
+  border: 1px solid rgba(237, 233, 225, 0.16);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: rgba(237, 233, 225, 0.86);
+}
+
 /* --- Projects (minimal showcase) --- */
 
 .projects-section {

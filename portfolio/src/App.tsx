@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import LandingPage from './components/LandingPage.tsx'
 import ProjectShowcase from './components/ProjectShowcase.tsx'
+import EducationSection from './components/EducationSection.tsx'
 import ProjectDetailPage, { type Project } from './components/ProjectDetailPage.tsx'
 import { PROJECT_CARDS } from './data/projects.ts'
 
@@ -52,6 +53,8 @@ function App() {
           setSelectedProject(project)
         }} 
       />
+
+      <EducationSection />
 
       <section className="after-section">
         <div className="after-inner">

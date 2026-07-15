@@ -5,6 +5,7 @@ import LandingPage from './components/LandingPage.tsx'
 import TechStackSection from './components/TechStackSection.tsx'
 import ProjectShowcase from './components/ProjectShowcase.tsx'
 import EducationSection from './components/EducationSection.tsx'
+import GitHubContributionsSection from './components/GitHubContributionsSection.tsx'
 import ProjectDetailPage, { type Project } from './components/ProjectDetailPage.tsx'
 import { PROJECT_CARDS } from './data/projects.ts'
 
@@ -58,6 +59,8 @@ function App() {
       />
 
       <EducationSection />
+
+      <GitHubContributionsSection />
 
       <section className="after-section">
         <div className="after-inner">

@@ -890,6 +890,80 @@
   color: rgba(237, 233, 225, 0.86);
 }
 
+/* --- GitHub contributions (minimal) --- */
+
+.github-section {
+  padding: clamp(64px, 10vh, 120px) clamp(24px, 5vw, 80px);
+  border-top: 1px solid var(--border);
+}
+
+.github-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.github-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.github-header h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.github-header p {
+  margin: 14px 0 0;
+  max-width: 62ch;
+  color: var(--fg-dim);
+  line-height: 1.75;
+  font-size: 15px;
+}
+
+.github-link {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(237, 233, 225, 0.86);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(237, 233, 225, 0.28);
+  padding-bottom: 2px;
+  white-space: nowrap;
+}
+
+.github-link:hover {
+  border-bottom-color: rgba(237, 233, 225, 0.6);
+}
+
+.github-card {
+  margin-top: clamp(28px, 4vh, 44px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: clamp(16px, 3vw, 24px);
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.github-calendar-wrap {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.github-calendar-wrap > div:not(:has(svg)) {
+  color: var(--fg-dim);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.github-calendar-wrap svg text {
+  fill: var(--fg-muted);
+}
+
 .after-section {
   min-height: 60svh;
   display: flex;

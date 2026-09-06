@@ -2,6 +2,7 @@ import { AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import DigitalFootprintPrompt from './components/DigitalFootprintPrompt.tsx'
+import FootprintLocationMap from './components/FootprintLocationMap.tsx'
 import LandingPage from './components/LandingPage.tsx'
 import TechStackSection from './components/TechStackSection.tsx'
 import ProjectShowcase from './components/ProjectShowcase.tsx'
@@ -23,6 +24,8 @@ type FootprintData = {
   platform?: string
   language?: string
   screen?: string
+  latitude?: number
+  longitude?: number
   location?: { latitude: number; longitude: number; accuracy: number }
 }
 
@@ -112,6 +115,12 @@ function App() {
     else void finishFootprintScan()
   }
 
+  const mapLocation = footprintData.location || (
+    footprintData.latitude !== undefined && footprintData.longitude !== undefined
+      ? { latitude: footprintData.latitude, longitude: footprintData.longitude }
+      : undefined
+  )
+
   const handleNextProject = () => {
     if (!selectedProject) return
 
@@ -187,7 +196,15 @@ function App() {
             <button className="footprint-close" onClick={() => setShowFootprint(false)} aria-label="Close footprint results">×</button>
             <span className="footprint-eyebrow">YOUR VISIBLE SIGNALS</span>
             <h2 id="footprint-results-title">Here is what this visit reveals.</h2>
+            {mapLocation && (
+              <FootprintLocationMap
+                latitude={mapLocation.latitude}
+                longitude={mapLocation.longitude}
+                isPrecise={Boolean(footprintData.location)}
+              />
+            )}
             <div className="footprint-grid">
+              <span>IP address</span><strong>{footprintData.ip || 'Unavailable'}</strong>
               <span>Network location</span><strong>{footprintData.city ? `${footprintData.city}, ${footprintData.country}` : 'Unavailable'}</strong>
               <span>Timezone</span><strong>{footprintData.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone}</strong>
               <span>Device</span><strong>{footprintData.platform || 'Unavailable'}</strong>
